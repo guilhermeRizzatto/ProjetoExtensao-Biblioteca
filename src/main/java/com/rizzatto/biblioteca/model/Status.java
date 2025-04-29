@@ -1,10 +1,5 @@
 package com.rizzatto.biblioteca.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public enum Status {
 
     DISPONIVEL("DISPONIVEL"),
@@ -16,5 +11,7 @@ public enum Status {
         this.value = value;
     }
 
-
+    public String getValue() {
+        return value;
+    }
 }
