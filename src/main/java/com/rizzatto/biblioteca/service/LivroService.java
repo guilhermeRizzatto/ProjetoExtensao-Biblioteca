@@ -4,9 +4,10 @@ import com.rizzatto.biblioteca.model.Livro;
 import com.rizzatto.biblioteca.model.dto.DadosLivro;
 import com.rizzatto.biblioteca.model.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class LivroService {
@@ -14,8 +15,9 @@ public class LivroService {
     @Autowired
     private LivroRepository repository;
 
-    public List<Livro> getLivros(){
-        return repository.findAll();
+    public Page<Livro> getLivros(int pageNumber, int pageSize){
+        Pageable paginacao = PageRequest.of(pageNumber, pageSize);
+        return repository.findAll(paginacao);
     }
 
     public Livro getLivroID(Long id){

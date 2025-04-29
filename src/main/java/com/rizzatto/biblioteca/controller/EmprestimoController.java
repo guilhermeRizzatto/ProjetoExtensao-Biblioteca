@@ -4,11 +4,10 @@ import com.rizzatto.biblioteca.model.Emprestimo;
 import com.rizzatto.biblioteca.model.dto.DadosEmprestimo;
 import com.rizzatto.biblioteca.service.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("emprestimos")
@@ -18,8 +17,9 @@ public class EmprestimoController {
     private EmprestimoService service;
 
     @GetMapping()
-    public ResponseEntity<List<Emprestimo>> getEmprestimos() {
-        List<Emprestimo> emprestimos = service.getEmprestimos();
+    public ResponseEntity<Page<Emprestimo>> getEmprestimos(@RequestParam int pageNumber,
+                                                           @RequestParam int pageSize) {
+        Page<Emprestimo> emprestimos = service.getEmprestimos(pageNumber,pageSize);
         return ResponseEntity.ok(emprestimos);
     }
 

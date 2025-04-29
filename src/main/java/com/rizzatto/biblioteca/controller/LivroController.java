@@ -4,11 +4,10 @@ import com.rizzatto.biblioteca.model.Livro;
 import com.rizzatto.biblioteca.model.dto.DadosLivro;
 import com.rizzatto.biblioteca.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("livro")
@@ -18,8 +17,9 @@ public class LivroController {
     private LivroService service;
 
     @GetMapping()
-    public ResponseEntity<List<Livro>> getLivros() {
-        List<Livro> livros = service.getLivros();
+    public ResponseEntity<Page<Livro>> getLivros(@RequestParam int pageNumber,
+                                                 @RequestParam int pageSize) {
+        Page<Livro> livros = service.getLivros(pageNumber,pageSize);
         return ResponseEntity.ok(livros);
     }
 

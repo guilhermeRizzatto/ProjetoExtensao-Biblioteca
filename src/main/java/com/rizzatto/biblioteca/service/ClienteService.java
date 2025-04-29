@@ -4,9 +4,10 @@ import com.rizzatto.biblioteca.model.Cliente;
 import com.rizzatto.biblioteca.model.dto.DadosCliente;
 import com.rizzatto.biblioteca.model.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ClienteService {
@@ -14,8 +15,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public List<Cliente> getClientes(){
-        return repository.findAll();
+    public Page<Cliente> getClientes(int pageNumber, int pageSize){
+        Pageable paginacao = PageRequest.of(pageNumber, pageSize);
+        return repository.findAll(paginacao);
     }
 
     public Cliente getClienteID(Long id){

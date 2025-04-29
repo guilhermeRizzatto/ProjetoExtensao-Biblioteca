@@ -4,9 +4,10 @@ import com.rizzatto.biblioteca.model.Emprestimo;
 import com.rizzatto.biblioteca.model.dto.DadosEmprestimo;
 import com.rizzatto.biblioteca.model.repository.EmprestimoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EmprestimoService {
@@ -14,8 +15,9 @@ public class EmprestimoService {
     @Autowired
     private EmprestimoRepository repository;
 
-    public List<Emprestimo> getEmprestimos(){
-        return repository.findAll();
+    public Page<Emprestimo> getEmprestimos(int pageNumber, int pageSize){
+        Pageable paginacao = PageRequest.of(pageNumber, pageSize);
+        return repository.findAll(paginacao);
     }
 
     public Emprestimo getEmprestimoID(Long id){
