@@ -16,7 +16,7 @@ public class UsuarioService {
 
     public boolean login(DadosUsuario usuario){
 
-        Usuario usr = repository.findByIdentificao(usuario.identificacao());
+        Usuario usr = repository.findByidentificacao(usuario.identificacao());
 
         if(usr != null){
             if(usr.getSenha().equals(usuario.senha())){;
@@ -24,12 +24,12 @@ public class UsuarioService {
             }
             throw new ValidacaoException("Senha incorreta");
         }
-        return false;
+        throw new ValidacaoException("Identificacao não encontrada");
     }
 
     public void update(DadosNovaSenha dados){
 
-        Usuario usuario = repository.findByIdentificao(dados.identificacao());
+        Usuario usuario = repository.findByidentificacao(dados.identificacao());
 
         if(dados.senhaOld().equals(usuario.getSenha())){
             usuario.setSenha(dados.senhaNew());
